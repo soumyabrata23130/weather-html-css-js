@@ -1,0 +1,25 @@
+body {
+	text-align: center;
+}
+
+table {
+	margin: auto;
+}
+
+#desc {
+	vertical-align: top;
+}
+
+#icon {
+	vertical-align: top;
+}
+
+#temp {
+	font-size: x-large;
+	font-weight: bold;
+}
+
+#temp-feel {
+	font-size: 130%;
+	font-weight: bold;
+}
