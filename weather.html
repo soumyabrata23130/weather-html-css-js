@@ -6,10 +6,17 @@
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
-		<h1>Weather</h1>
-		<input type="text" id="input" name="city" placeholder="Enter a city" required>
-		<button type="submit" id="get">Get data</button>
-		<div id="output"></div>
+		<header>
+			<h1>Weather</h1>
+		</header>
+		<main id="main">
+			<div class="input">
+				<input type="text" id="input" name="city" placeholder="Enter a city" required>
+				<button type="submit" id="get">Get data</button>
+			</div>
+			<div id="output"></div>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 		<script src="script.js"></script>
 	</body>
 </html>
