@@ -69,7 +69,16 @@ function getImage(city) {
 		.catch(error => console.error('Error fetching JSON:', error))
 }
 
-function getWeatherData(city) {
+function getWeatherData(city, index) {
+	const cities = {
+		"birmingham": "Birmingham, GB", // change to the most popular Birmingham
+		"melbourne": "Melbourne, AU", // change to the most popular Melbourne
+		"rome": "Rome, IT", // change to the most popular Rome
+	}
+	if(cities[city] !== undefined) {
+		city = cities[city]
+	}
+
 	const source="http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=643d74ed61652d0b3ac8bfe900c9b122"
 
 	fetch(source)
@@ -80,6 +89,7 @@ function getWeatherData(city) {
 			icon=`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` // icon
 			humidity=data.main.humidity // humidity
 			pressure=data.main.pressure // pressure
+			name=data.name // name
 			speed=data.wind.speed // wind speed
 			temp=(Math.round(data.main.temp*100)-27315)/100 // temperature
 			temp_feel=(Math.round(data.main.feels_like*100)-27315)/100 // feels like
@@ -131,7 +141,7 @@ function getWeatherData(city) {
 
 			document.getElementById("output").innerHTML=`
 				<div id="image"></div>
-				<h2>${capitalize(city)}, ${country}</h2>
+				<h2>${name}, ${country}</h2>
 				<p>${date}</p>
 				<div class="icon"><img src=${icon} /></div>
 				<div class="temp-box">
