@@ -4,7 +4,7 @@ function toCommonsLink(image) {
 	}
 	const hash = CryptoJS.MD5(image).toString(CryptoJS.enc.Hex)
 	const url = "https://upload.wikimedia.org/wikipedia/commons/"+hash[0]+"/"+hash[0]+hash[1]+"/"+image
-	console.log(url)
+	console.log("URL: " + url)
 	return url
 }
 
@@ -15,11 +15,11 @@ function capitalize(str) {
 			str = str.slice(0, i+1) + str[i+1].toUpperCase() + str.slice(i+2)
 		}
 	}
+	console.log("City: " + str)
 	return str
 }
 
 function getImage(city) {
-	let item = "Q515"
 	city = city.toLowerCase()
 	const cities = {
 		"beijing": "Q956",
@@ -32,52 +32,47 @@ function getImage(city) {
 		"jakarta": "Q3630",
 		"kolkata": "Q1348",
 		"london": "Q84",
-		"los Angeles": "Q65",
+		"los angeles": "Q65",
 		"manila": "Q1461",
 		"melbourne": "Q949779",
 		"moscow": "Q649",
 		"mumbai": "Q1156",
-		"mew York": "Q60",
+		"new york": "Q60",
 		"paris": "Q90",
 		"st. petersburg": "Q656",
 		"shanghai": "Q8686",
 		"sydney": "Q3130",
-		"tokyo": "Q1490",
 		"toronto": "Q172",
 	}
-	if(cities[city] !== undefined) {
-		item = cities[city]
+	if(cities[city] === undefined) {
+		document.getElementById("image").innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Skyscrapers_of_Shinjuku_2009_January_%28revised%29.jpg" width=150 />`
+		return
 	}
 
+	let item = cities[city]
 	const source="https://www.wikidata.org/wiki/Special:EntityData/"+item+".json"
 
 	fetch(source)
 		.then(response => response.json())
 		.then(data => {
-			if(data.entities[item].claims.P4291 === undefined && data.entities[item].claims.P948 === undefined) {
-				image = data.entities[item].claims.P18[0].mainsnak.datavalue.value
-			}
-			else if(data.entities[item].claims.P4291 === undefined) {
-				image = data.entities[item].claims.P948[0].mainsnak.datavalue.value
-			}
-			else {
-				image = data.entities[item].claims.P4291[0].mainsnak.datavalue.value
-			}
+			image = data.entities[item].claims.P18[0].mainsnak.datavalue.value
 			const image_url = toCommonsLink(image)
-			document.getElementById("image").innerHTML = `<img src=${image_url} width=220 />`
+			document.getElementById("image").innerHTML = `<img src=${image_url} width=150 />`
 		})
 		.catch(error => console.error('Error fetching JSON:', error))
 }
 
-function getWeatherData(city, index) {
+function getWeatherData(city) {
 	const cities = {
 		"birmingham": "Birmingham, GB", // change to the most popular Birmingham
 		"melbourne": "Melbourne, AU", // change to the most popular Melbourne
 		"rome": "Rome, IT", // change to the most popular Rome
 	}
-	if(cities[city] !== undefined) {
-		city = cities[city]
+	if(cities[city.toLowerCase()] !== undefined) {
+		city = cities[city.toLowerCase()]
 	}
+
+	capitalize(city)
 
 	const source="http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=643d74ed61652d0b3ac8bfe900c9b122"
 
@@ -145,10 +140,10 @@ function getWeatherData(city, index) {
 				<p>${date}</p>
 				<div class="icon"><img src=${icon} /></div>
 				<div class="temp-box">
-					<p class="temp">${temp}℃</p>
+					<p class="temp">${temp}&nbsp;℃</p>
 					<p class="desc">${description}</p>
 				</div>
-				<p>Feels like ${temp_feel}℃</p>
+				<p>Feels like ${temp_feel}&nbsp;℃</p>
 				<p>Humidity: ${humidity}%</p>
 				<p>Pressure: ${pressure} <abbr title="hectopascals">hPa</abbr></p>
 				<p>Wind speed: ${speed} m/s</p>
