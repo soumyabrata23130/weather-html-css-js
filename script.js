@@ -138,7 +138,7 @@ function getWeatherData(city) {
 				<div id="image"></div>
 				<h2>${name}, ${country}</h2>
 				<p>${date}</p>
-				<div class="icon"><img src=${icon} /></div>
+				<img class="icon" src=${icon} />
 				<div class="temp-box">
 					<p class="temp">${temp}&nbsp;℃</p>
 					<p class="desc">${description}</p>
