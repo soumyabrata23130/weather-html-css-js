@@ -3,54 +3,45 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 		<title>Weather</title>
+		<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="styles.css" />
 	</head>
-	<body>
-		<header>
-			<h1>Weather</h1>
+	<body class="flex-col">
+		<header class="sticky mb-2 pt-4">
+			<h1 class="font-bold text-3xl text-center">Weather</h1>
 		</header>
-		<main id="main">
-			<div class="main-flex">
-				<div class="box input-output">
-					<div class="input">
-						<input type="text" id="input" name="city" placeholder="Enter a city" required>
-						<button type="submit" id="get">Get data</button>
+		<main>
+			<div class="flex justify-center"><!-- main weather flexbox -->
+				<div class="box flex-col"><!-- input-output flexbox -->
+					<div class="flex gap-x-1 justify-center"><!-- input flexbox -->
+						<input class="pl-1 rounded" type="text" id="input" name="city" placeholder="Enter a city" required />
+						<button class="rounded" type="submit" id="get">Get data</button><!-- submit button -->
 					</div>
-					<div id="output">
-						<img id="city-image" src="https://upload.wikimedia.org/wikipedia/commons/c/c8/NoImageEN.png" alt="Foobar" width=150 />
-						<h2 id="city-name"></h2>
-						<p id="today"></p>
-						<div id="icon"></div>
-						<div id="temp-box">
-							<p id="temp"></p>
-							<p id="desc"></p>
+					<div class="flex-col justify-items-center" id="output"><!-- output flexbox -->
+						<h2 class="font-bold text-2xl" id="city-name"></h2><!-- city name -->
+						<div class="flex gap-3">
+							<p id="today-date"></p><!-- current date -->
+							<p id="today-time"></p><!-- current time -->
 						</div>
-						<p id="feels"></p>
-						<p id="humidity"></p>
-						<p id="pressure"></p>
-						<p id="speed"></p>
+						<div class="flex items-center"><!-- flexbox with temperature and icon -->
+							<div class="font-semibold text-lg text-left" id="temp-box"><!-- temperature box -->
+								<p id="temp"></p><!-- temperature -->
+								<p id="desc"></p><!-- weather description -->
+							</div>
+							<div id="icon"></div><!-- icon -->
+						</div>
+						<p id="feels"></p><!-- real feel -->
+						<p id="humidity"></p><!-- humidity -->
+						<p id="pressure"></p><!-- pressure -->
+						<p id="speed"></p><!-- wind speed -->
 					</div>
-				</div>
-				<div class="box map">
-					<fieldset>
-						<legend>Map:</legend>
-						<div>
-							<input type="radio" name="map" id="google" value="google">
-							<label for="google">Google Maps</label>
-						</div>
-						<div>
-							<input type="radio" name="map" id="osm" value="osm">
-							<label for="osm">OpenStreetMap</label> 
-						</div>
-					</fieldset>
 				</div>
 			</div>
 		</main>
-		<footer>
+		<footer class="mb-2 py-4 text-center">
 			<p>Copyright © 2025 Soumyabrata Bhattacharjee.</p>
-			<p>Weather data provided by <a href="https://openweathermap.org/">OpenWeather</a>. Powered by <a href="https://wikidata.org/">Wikidata</a>.</p>
+			<p>Weather data provided by <a class="text-semibold" href="https://openweathermap.org/">OpenWeather</a>.</p>
 		</footer>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 		<script src="script.js"></script>
 	</body>
 </html>

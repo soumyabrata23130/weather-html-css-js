@@ -21,49 +21,64 @@ function capitalize(str) {
 	return str
 }
 
-function getImage(city) {
-	city = city.toLowerCase()
-	const cities = {
-		"beijing": "Q956",
-		"bengaluru": "Q1355",
-		"cairo": "Q85",
-		"chennai": "Q1352",
-		"delhi": "Q1353",
-		"dubai": "Q612",
-		"hyderabad": "Q1361",
-		"jakarta": "Q3630",
-		"kolkata": "Q1348",
-		"london": "Q84",
-		"los angeles": "Q65",
-		"manila": "Q1461",
-		"melbourne": "Q949779",
-		"moscow": "Q649",
-		"mumbai": "Q1156",
-		"new york": "Q60",
-		"paris": "Q90",
-		"st. petersburg": "Q656",
-		"shanghai": "Q8686",
-		"sydney": "Q3130",
-		"toronto": "Q172",
-	}
-	let item = cities[city]
-	let image_element = document.getElementById("city-image")
-	const source="https://www.wikidata.org/wiki/Special:EntityData/"+item+".json"
+function todayDate() {
+	const months = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December',
+	]
+	const weekdays = [
+		'Sunday',
+		'Monday',
+		'Tuesday',
+		'Wednesday',
+		'Thursday',
+		'Friday',
+		'Saturday',
+	]
+	const today = new Date()
 
-	fetch(source)
-		.then(response => response.json())
-		.then(data => {
-			fetched_image = data.entities[item].claims.P18[0].mainsnak.datavalue.value
-			const image_url = toCommonsLink(fetched_image)
-			image_element.setAttribute("src", `${image_url}`)
-			image_element.setAttribute("alt", `${city}`)
-		})
-		.catch(error => console.error('Error fetching JSON:', error))
+	return `${weekdays[today.getDay()]}, ${today.getDate()} ${months[today.getMonth()]}`
+}
+
+function todayTime() {
+	const today = new Date()
+
+	let hours = today.getHours()
+	if(today.getHours() > 12) {
+		hours -= 12
+	}
+	else if(today.getHours() === 0) {
+		hours = 12
+	}
+
+	let meridiem = "AM"
+	if(today.getHours() > 12) {
+		meridiem = "PM"
+	}
+	else if(today.getHours() === 12) {
+		meridiem = "noon"
+	}
+	else if(today.getHours() === 0) {
+		meridiem = "midnight"
+	}
+
+	return `${hours}:${today.getMinutes()} ${meridiem}`
 }
 
 function displayData() {
 	document.getElementById("city-name").innerHTML = `${name}, ${country}`
-	document.getElementById("today").innerHTML = `${date}`
+	document.getElementById("today-date").innerHTML = `${todayDate()}`
+	document.getElementById("today-time").innerHTML = `${todayTime()}`
 	document.getElementById("icon").innerHTML = `<img src=${icon} />`
 	document.getElementById("temp").innerHTML = `${temp}&nbsp;℃`
 	document.getElementById("desc").innerHTML = `${description}`
@@ -98,52 +113,7 @@ function getData(city) {
 			name=data.name // name
 			speed=data.wind.speed // wind speed
 			temp=(Math.round(data.main.temp*100)-27315)/100 // temperature
-			temp_feel=(Math.round(data.main.feels_like*100)-27315)/100 // feels like
-
-			const months = [
-				'January',
-				'February',
-				'March',
-				'April',
-				'May',
-				'June',
-				'July',
-				'August',
-				'September',
-				'October',
-				'November',
-				'December',
-			]
-			const weekdays = [
-				'Sunday',
-				'Monday',
-				'Tuesday',
-				'Wednesday',
-				'Thursday',
-				'Friday',
-				'Saturday',
-			]
-			const today = new Date()
-
-			let hours = today.getHours()
-			if(today.getHours() > 12) {
-				hours -= 12
-			}
-			else if(today.getHours() === 0) {
-				hours = 12
-			}
-
-			let meridiem = "AM"
-			if(today.getHours() > 12) {
-				meridiem = "PM"
-			}
-			else if(today.getHours() === 12) {
-				meridiem = "noon"
-			}
-			else if(today.getHours() === 0) {
-				meridiem = "midnight"
-			}
-			date=`${weekdays[today.getDay()]}, ${today.getDate()} ${months[today.getMonth()]} ${hours}:${today.getMinutes()} ${meridiem}`
+			temp_feel=(Math.round(data.main.feels_like*100)-27315)/100 // real feel
 
 			displayData()
 
