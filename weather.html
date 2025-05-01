@@ -10,11 +10,41 @@
 			<h1>Weather</h1>
 		</header>
 		<main id="main">
-			<div class="input">
-				<input type="text" id="input" name="city" placeholder="Enter a city" required>
-				<button type="submit" id="get">Get data</button>
+			<div class="main-flex">
+				<div class="box input-output">
+					<div class="input">
+						<input type="text" id="input" name="city" placeholder="Enter a city" required>
+						<button type="submit" id="get">Get data</button>
+					</div>
+					<div id="output">
+						<img id="city-image" src="https://upload.wikimedia.org/wikipedia/commons/c/c8/NoImageEN.png" alt="Foobar" width=150 />
+						<h2 id="city-name"></h2>
+						<p id="today"></p>
+						<div id="icon"></div>
+						<div id="temp-box">
+							<p id="temp"></p>
+							<p id="desc"></p>
+						</div>
+						<p id="feels"></p>
+						<p id="humidity"></p>
+						<p id="pressure"></p>
+						<p id="speed"></p>
+					</div>
+				</div>
+				<div class="box map">
+					<fieldset>
+						<legend>Map:</legend>
+						<div>
+							<input type="radio" name="map" id="google" value="google">
+							<label for="google">Google Maps</label>
+						</div>
+						<div>
+							<input type="radio" name="map" id="osm" value="osm">
+							<label for="osm">OpenStreetMap</label> 
+						</div>
+					</fieldset>
+				</div>
 			</div>
-			<div id="output"></div>
 		</main>
 		<footer>
 			<p>Copyright © 2025 Soumyabrata Bhattacharjee.</p>

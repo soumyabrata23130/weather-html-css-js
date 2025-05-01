@@ -4,7 +4,9 @@ function toCommonsLink(image) {
 	}
 	const hash = CryptoJS.MD5(image).toString(CryptoJS.enc.Hex)
 	const url = "https://upload.wikimedia.org/wikipedia/commons/"+hash[0]+"/"+hash[0]+hash[1]+"/"+image
+
 	console.log("URL: " + url)
+
 	return url
 }
 
@@ -44,25 +46,34 @@ function getImage(city) {
 		"sydney": "Q3130",
 		"toronto": "Q172",
 	}
-	if(cities[city] === undefined) {
-		document.getElementById("image").innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Skyscrapers_of_Shinjuku_2009_January_%28revised%29.jpg" width=150 />`
-		return
-	}
-
 	let item = cities[city]
+	let image_element = document.getElementById("city-image")
 	const source="https://www.wikidata.org/wiki/Special:EntityData/"+item+".json"
 
 	fetch(source)
 		.then(response => response.json())
 		.then(data => {
-			image = data.entities[item].claims.P18[0].mainsnak.datavalue.value
-			const image_url = toCommonsLink(image)
-			document.getElementById("image").innerHTML = `<img src=${image_url} width=150 />`
+			fetched_image = data.entities[item].claims.P18[0].mainsnak.datavalue.value
+			const image_url = toCommonsLink(fetched_image)
+			image_element.setAttribute("src", `${image_url}`)
+			image_element.setAttribute("alt", `${city}`)
 		})
 		.catch(error => console.error('Error fetching JSON:', error))
 }
 
-function getWeatherData(city) {
+function displayData() {
+	document.getElementById("city-name").innerHTML = `${name}, ${country}`
+	document.getElementById("today").innerHTML = `${date}`
+	document.getElementById("icon").innerHTML = `<img src=${icon} />`
+	document.getElementById("temp").innerHTML = `${temp}&nbsp;℃`
+	document.getElementById("desc").innerHTML = `${description}`
+	document.getElementById("feels").innerHTML = `Feels like ${temp_feel}&nbsp;℃`
+	document.getElementById("humidity").innerHTML = `Humidity: ${humidity}%`
+	document.getElementById("pressure").innerHTML = `Pressure: ${pressure} <abbr title="hectopascals">hPa</abbr>`
+	document.getElementById("speed").innerHTML = `Wind speed: ${speed} m/s`
+}
+
+function getData(city) {
 	const cities = {
 		"birmingham": "Birmingham, GB", // change to the most popular Birmingham
 		"melbourne": "Melbourne, AU", // change to the most popular Melbourne
@@ -134,31 +145,14 @@ function getWeatherData(city) {
 			}
 			date=`${weekdays[today.getDay()]}, ${today.getDate()} ${months[today.getMonth()]} ${hours}:${today.getMinutes()} ${meridiem}`
 
-			document.getElementById("output").innerHTML=`
-				<div id="image"></div>
-				<h2>${name}, ${country}</h2>
-				<p>${date}</p>
-				<img class="icon" src=${icon} />
-				<div class="temp-box">
-					<p class="temp">${temp}&nbsp;℃</p>
-					<p class="desc">${description}</p>
-				</div>
-				<p>Feels like ${temp_feel}&nbsp;℃</p>
-				<p>Humidity: ${humidity}%</p>
-				<p>Pressure: ${pressure} <abbr title="hectopascals">hPa</abbr></p>
-				<p>Wind speed: ${speed} m/s</p>
-			`
+			displayData()
 
-			getImage(city)
 		})
 		.catch(error => console.error('Error fetching JSON:', error))
 }
 
-// when document loads
-document.getElementById("output").addEventListener("load", getWeatherData("Kolkata"))
-
-// when you press "get data"
 document.getElementById("get").addEventListener("click", () => {
 	city=document.getElementById("input").value
-	getWeatherData(city)
+	getImage(city)
+	getData(city)
 })
