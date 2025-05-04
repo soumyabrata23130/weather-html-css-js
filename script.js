@@ -88,6 +88,7 @@ function displayData() {
 }
 
 function getData(city) {
+	document.getElementById("loading").style.display = "block" // loading GIF to show till data are loaded
 	const cities = {
 		"birmingham": "Birmingham, GB", // change to the most popular Birmingham
 		"melbourne": "Melbourne, AU", // change to the most popular Melbourne
@@ -114,8 +115,8 @@ function getData(city) {
 			temp=(Math.round(data.main.temp*100)-27315)/100 // temperature
 			temp_feel=(Math.round(data.main.feels_like*100)-27315)/100 // real feel
 
+			document.getElementById("loading").style.display = "none" // stop loading GIF
 			displayData()
-
 		})
 		.catch(error => console.error('Error fetching JSON:', error))
 }

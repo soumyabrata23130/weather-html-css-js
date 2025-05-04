@@ -42,6 +42,12 @@ button {
 	background: lightgreen;
 }
 
+#loading {
+	display: none;
+	margin: 2rem auto;
+	width: 2rem;
+}
+
 @media (prefers-color-scheme: dark) {
 	html {
 		color-scheme: dark;

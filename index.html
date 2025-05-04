@@ -3,7 +3,7 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 		<title>Weather</title>
-		<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
+		<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body class="flex items-center justify-center">
@@ -17,6 +17,7 @@
 				<!-- input end -->
 				<hr class="my-2">
 				<!-- output begin -->
+				<img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Ajax_loader_metal_512.gif" alt="Please wait">
 				<h2 class="font-bold text-2xl" id="city-name"></h2><!-- city name -->
 				<p class="text-sm" id="today"></p><!-- current date & time -->
 				<div class="flex items-center justify-center ml-4" id="temp-box"><!-- flexbox with temperature and icon -->
