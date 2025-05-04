@@ -6,42 +6,37 @@
 		<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="styles.css" />
 	</head>
-	<body class="flex-col">
-		<header class="sticky mb-2 pt-4">
-			<h1 class="font-bold text-3xl text-center">Weather</h1>
-		</header>
-		<main>
-			<div class="flex justify-center"><!-- main weather flexbox -->
-				<div class="box flex-col"><!-- input-output flexbox -->
-					<div class="flex gap-x-1 justify-center"><!-- input flexbox -->
-						<input class="pl-1 rounded" type="text" id="input" name="city" placeholder="Enter a city" required />
-						<button class="rounded" type="submit" id="get">Get data</button><!-- submit button -->
+	<body class="flex items-center justify-center">
+		<main class="text-center">
+			<h1 class="font-bold text-4xl">Weather</h1>
+			<div class="mx-auto my-1 p-4 rounded-md" id="weather-card"><!-- weather card -->
+				<!-- input begin -->
+				<input class="rounded" type="text" id="input" name="city" placeholder="Enter a city" required><br>
+				<button class="lightgreen m-2 px-3 py-1 rounded" type="submit" id="get">Get Weather</button><!-- submit button -->
+				<p id="error"></p>
+				<!-- input end -->
+				<hr class="my-2">
+				<!-- output begin -->
+				<h2 class="font-bold text-2xl" id="city-name"></h2><!-- city name -->
+				<p class="text-sm" id="today"></p><!-- current date & time -->
+				<div class="flex items-center justify-center ml-4" id="temp-box"><!-- flexbox with temperature and icon -->
+					<div class="text-left" id="temp-desc"><!-- temperature and description -->
+						<p class="font-semibold text-xl" id="temp"></p><!-- temperature -->
+						<p id="desc"></p><!-- weather description -->
 					</div>
-					<div class="flex-col justify-items-center" id="output"><!-- output flexbox -->
-						<h2 class="font-bold text-2xl" id="city-name"></h2><!-- city name -->
-						<div class="flex gap-3">
-							<p id="today-date"></p><!-- current date -->
-							<p id="today-time"></p><!-- current time -->
-						</div>
-						<div class="flex items-center"><!-- flexbox with temperature and icon -->
-							<div class="font-semibold text-lg text-left" id="temp-box"><!-- temperature box -->
-								<p id="temp"></p><!-- temperature -->
-								<p id="desc"></p><!-- weather description -->
-							</div>
-							<div id="icon"></div><!-- icon -->
-						</div>
-						<p id="feels"></p><!-- real feel -->
-						<p id="humidity"></p><!-- humidity -->
-						<p id="pressure"></p><!-- pressure -->
-						<p id="speed"></p><!-- wind speed -->
-					</div>
+					<div id="icon"></div><!-- icon -->
 				</div>
+				<p id="feels"></p><!-- real feel -->
+				<p id="humidity"></p><!-- humidity -->
+				<p id="pressure"></p><!-- pressure -->
+				<p id="speed"></p><!-- wind speed -->
+				<!-- output end -->
+			</div>
+			<div class="mt-3 text-center text-sm">
+				<p>Copyright © 2025 Soumyabrata Bhattacharjee.</p>
+				<p>Weather data provided by <a class="text-semibold" href="https://openweathermap.org/">OpenWeather</a>.</p>
 			</div>
 		</main>
-		<footer class="mb-2 py-4 text-center">
-			<p>Copyright © 2025 Soumyabrata Bhattacharjee.</p>
-			<p>Weather data provided by <a class="text-semibold" href="https://openweathermap.org/">OpenWeather</a>.</p>
-		</footer>
 		<script src="script.js"></script>
 	</body>
 </html>

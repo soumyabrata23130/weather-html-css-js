@@ -21,7 +21,9 @@ function capitalize(str) {
 	return str
 }
 
-function todayDate() {
+function today() {
+	const today = new Date()
+
 	const months = [
 		'January',
 		'February',
@@ -45,13 +47,6 @@ function todayDate() {
 		'Friday',
 		'Saturday',
 	]
-	const today = new Date()
-
-	return `${weekdays[today.getDay()]}, ${today.getDate()} ${months[today.getMonth()]}`
-}
-
-function todayTime() {
-	const today = new Date()
 
 	let hours = today.getHours()
 	if(today.getHours() > 12) {
@@ -61,30 +56,34 @@ function todayTime() {
 		hours = 12
 	}
 
-	let meridiem = "AM"
-	if(today.getHours() > 12) {
+	let meridiem = "AM", minutes = String(today.getMinutes())
+
+	if(today.getMinutes() < 10) {
+		minutes = "0" + minutes
+	}
+
+	if(today.getHours() >= 12 && minutes !== "00") {
 		meridiem = "PM"
 	}
-	else if(today.getHours() === 12) {
+	else if(today.getHours() === 12 && minutes === "00") {
 		meridiem = "noon"
 	}
-	else if(today.getHours() === 0) {
+	else if(today.getHours() === 0 && minutes === "00") {
 		meridiem = "midnight"
 	}
 
-	return `${hours}:${today.getMinutes()} ${meridiem}`
+	return `${weekdays[today.getDay()]}, ${today.getDate()} ${months[today.getMonth()]}, ${hours}:${minutes} ${meridiem}`
 }
 
 function displayData() {
 	document.getElementById("city-name").innerHTML = `${name}, ${country}`
-	document.getElementById("today-date").innerHTML = `${todayDate()}`
-	document.getElementById("today-time").innerHTML = `${todayTime()}`
+	document.getElementById("today").innerHTML = `${today()}`
 	document.getElementById("icon").innerHTML = `<img src=${icon} />`
 	document.getElementById("temp").innerHTML = `${temp}&nbsp;℃`
 	document.getElementById("desc").innerHTML = `${description}`
 	document.getElementById("feels").innerHTML = `Feels like ${temp_feel}&nbsp;℃`
 	document.getElementById("humidity").innerHTML = `Humidity: ${humidity}%`
-	document.getElementById("pressure").innerHTML = `Pressure: ${pressure} <abbr title="hectopascals">hPa</abbr>`
+	document.getElementById("pressure").innerHTML = `Pressure: ${pressure} <abbr class="no-underline" title="hectopascals">hPa</abbr>`
 	document.getElementById("speed").innerHTML = `Wind speed: ${speed} m/s`
 }
 
@@ -122,7 +121,13 @@ function getData(city) {
 }
 
 document.getElementById("get").addEventListener("click", () => {
-	city=document.getElementById("input").value
-	getImage(city)
-	getData(city)
+	let city=document.getElementById("input").value
+	if(city === "") {
+		console.log("Please enter a city!")
+		document.getElementById("error").innerHTML = "Please enter a city!"
+	}
+	else {
+		document.getElementById("error").innerHTML = ""
+		getData(city)
+	}
 })

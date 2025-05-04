@@ -1,13 +1,19 @@
 :root {
-	--background: #f0f0f2;
-	--box: white;
+	--background: linear-gradient(to bottom, #87CEEB, #ADD8E6, white);
+	--box: rgba(255, 255, 255, 0.3);
 	--foreground: black;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--background: black;
-		--box: #202020;
+		--background: linear-gradient(to bottom, black, #0B0B3B, #1C1C3A);
+		--box: rgba(32, 32, 32, 0.3);
 		--foreground: #ededed;
 	}
 }
@@ -18,48 +24,22 @@ html, body {
 	font-family: Arial, Helvetica, sans-serif;
 	max-width: 100vw;
 	overflow-x: hidden;
-	height: 100%;
+	height: 100vh;
 	margin: 0;
 }
 
-body {
+#weather-card {
 	background: var(--box);
-}
-
-header {
-	background: var(--box);
-	box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2);
-	height: 10vh;
-}
-
-main {
-	background: var(--background);
-	min-height: 76vh;
-}
-
-footer {
-	background: var(--box);
-	box-shadow: 0px -3px 7px rgba(0, 0, 0, 0.2);
-	height: 10vh;
+	box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
 }
 
 input {
 	border: 0.01rem solid var(--foreground);
+	padding: 0.1rem 0.2rem;
 }
 
 button {
 	background: lightgreen;
-	box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2);
-	color: black;
-	padding: 0.1rem 0.5rem;
-}
-
-.box {
-	background: var(--box);
-	border-radius: 0.4rem;
-	box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2);
-	margin: 1rem;
-	padding: 1rem;
 }
 
 @media (prefers-color-scheme: dark) {
