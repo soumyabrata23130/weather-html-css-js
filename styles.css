@@ -1,6 +1,5 @@
 :root {
 	--background: linear-gradient(to bottom, #87CEEB, #ADD8E6, white);
-	--box: rgba(255, 255, 255, 0.3);
 	--button: lightgreen;
 	--foreground: black;
 }
@@ -14,7 +13,6 @@
 @media (prefers-color-scheme: dark) {
 	:root {
 		--background: linear-gradient(to bottom, black, #0B0B3B, #1C1C3A);
-		--box: rgba(32, 32, 32, 0.3);
 		--button: darkgreen;
 		--foreground: #ededed;
 	}
@@ -31,7 +29,7 @@ html, body {
 }
 
 #weather-card {
-	background: var(--box);
+	background: rgba(255, 255, 255, 0.3);
 	box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
 }
 
