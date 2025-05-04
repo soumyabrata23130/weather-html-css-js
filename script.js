@@ -100,7 +100,7 @@ function getData(city) {
 
 	capitalize(city)
 
-	const source="http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=643d74ed61652d0b3ac8bfe900c9b122"
+	const source="https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=643d74ed61652d0b3ac8bfe900c9b122"
 
 	fetch(source)
 		.then(response => response.json())
