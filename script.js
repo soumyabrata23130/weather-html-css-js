@@ -72,7 +72,7 @@ function today() {
 		meridiem = "midnight"
 	}
 
-	return `${weekdays[today.getDay()]}, ${today.getDate()} ${months[today.getMonth()]}, ${hours}:${minutes} ${meridiem}`
+	return `${weekdays[today.getDay()]} ${today.getDate()} ${months[today.getMonth()]}, ${hours}:${minutes} ${meridiem}`
 }
 
 function displayData() {
