@@ -41,7 +41,7 @@ input {
 }
 
 button {
-	background: (--button);
+	background: var(--button);
 }
 
 #loading {
