@@ -87,6 +87,18 @@ function displayData() {
 	document.getElementById("speed").innerHTML = `Wind speed: ${speed} m/s`
 }
 
+function clearData() {
+	document.getElementById("city-name").innerHTML = ""
+	document.getElementById("today").innerHTML = ""
+	document.getElementById("icon").innerHTML = ""
+	document.getElementById("temp").innerHTML = ""
+	document.getElementById("desc").innerHTML = ""
+	document.getElementById("feels").innerHTML = ""
+	document.getElementById("humidity").innerHTML = ""
+	document.getElementById("pressure").innerHTML = ""
+	document.getElementById("speed").innerHTML = ""
+}
+
 function getData(city) {
 	document.getElementById("loading").style.display = "block" // loading GIF to show till data are loaded
 	const cities = {
@@ -129,6 +141,7 @@ document.getElementById("get").addEventListener("click", () => {
 	}
 	else {
 		document.getElementById("error").innerHTML = ""
+		clearData()
 		getData(city)
 	}
 })
