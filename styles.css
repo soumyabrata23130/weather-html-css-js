@@ -1,6 +1,7 @@
 :root {
 	--background: linear-gradient(to bottom, #87CEEB, #ADD8E6, white);
 	--box: rgba(255, 255, 255, 0.3);
+	--button: lightgreen;
 	--foreground: black;
 }
 
@@ -14,6 +15,7 @@
 	:root {
 		--background: linear-gradient(to bottom, black, #0B0B3B, #1C1C3A);
 		--box: rgba(32, 32, 32, 0.3);
+		--button: darkgreen;
 		--foreground: #ededed;
 	}
 }
@@ -39,7 +41,7 @@ input {
 }
 
 button {
-	background: lightgreen;
+	background: (--button);
 }
 
 #loading {
