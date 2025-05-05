@@ -86,7 +86,7 @@ function today() {
 
 async function fetchAQI(lat, lon) {
 
-	const source = "http://api.openweathermap.org/data/2.5/air_pollution?lat="+lat+"&lon="+lon+"&appid="+apiKey
+	const source = "https://api.openweathermap.org/data/2.5/air_pollution?lat="+lat+"&lon="+lon+"&appid="+apiKey
 	
 	return fetch(source)
 		.then(response => response.json())
