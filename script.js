@@ -145,6 +145,7 @@ function clearData() {
 	document.getElementById("temp").innerHTML = ""
 	document.getElementById("desc").innerHTML = ""
 	document.getElementById("feels").innerHTML = ""
+	document.getElementById("aqi").innerHTML = ""
 	document.getElementById("humidity").innerHTML = ""
 	document.getElementById("pressure").innerHTML = ""
 	document.getElementById("speed").innerHTML = ""
@@ -175,8 +176,10 @@ async function fetchWeather(city) {
 
 	return fetch(source)
 		.then(response => response.json())
-		.then(data => {
-			return data
+		.then(weather => {
+			fetchAQI(weather.coord.lat, weather.coord.lon).then(aqi => {
+				displayData(weather, aqi)
+			})
 		})
 		.catch(error => {
 			document.getElementById("loading").style.display = "none" // stop loading GIF
@@ -193,11 +196,7 @@ document.getElementById("get").addEventListener("click", () => {
 	}
 	else {
 		clearData()
-		fetchWeather(city).then(weather => {
-			fetchAQI(weather.coord.lat, weather.coord.lon).then(aqi => {
-				displayData(weather, aqi)
-			})
-		})
+		fetchWeather(city)
 	}
 })
 
