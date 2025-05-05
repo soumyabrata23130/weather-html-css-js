@@ -1,3 +1,12 @@
+const apiKey = "643d74ed61652d0b3ac8bfe900c9b122" // API key
+
+// default call
+fetchWeather("Kolkata").then(weather => {
+	fetchAQI(weather.coord.lat, weather.coord.lon).then(aqi => {
+		displayData(weather, aqi)
+	})
+})
+
 function toCommonsLink(image) {
 	for(let i = 0; i < image.length; i++) {
 		image = image.replace(" ", "_")
@@ -75,19 +84,61 @@ function today() {
 	return `${weekdays[today.getDay()]} ${today.getDate()} ${months[today.getMonth()]}, ${hours}:${minutes} ${meridiem}`
 }
 
-function displayData() {
-	document.getElementById("city-name").innerHTML = `${name}, ${country}`
+async function fetchAQI(lat, lon) {
+
+	const source = "http://api.openweathermap.org/data/2.5/air_pollution?lat="+lat+"&lon="+lon+"&appid="+apiKey
+	
+	return fetch(source)
+		.then(response => response.json())
+		.then(data => {
+			return data
+		})
+		.catch(error => console.error('Error fetching JSON:', error))
+}
+
+function displayData(weather, aqi) {
+	document.getElementById("loading").style.display = "none" // stop loading GIF
+
+	icon = "https://openweathermap.org/img/wn/"+weather.weather[0].icon+"@2x.png" // icon
+	temp = (Math.round(weather.main.temp*100)-27315)/100 // temperature
+	temp_feel = (Math.round(weather.main.feels_like*100)-27315)/100 // real feel
+	let aqi_desc
+
+	switch(aqi.list[0].main.aqi) {
+		case 1:
+			aqi_desc = "Good"
+			break
+		case 2:
+			aqi_desc = "Fair"
+			break
+		case 3:
+			aqi_desc = "Moderate"
+			break
+		case 4:
+			aqi_desc = "Poor"
+			break
+		case 5:
+			aqi_desc = "Very Poor"
+			break
+		default:
+			aqi_desc = "Unknown"
+	}
+	
+	document.getElementById("city-name").innerHTML = `${weather.name}, ${weather.sys.country}`
 	document.getElementById("today").innerHTML = `${today()}`
-	document.getElementById("icon").innerHTML = `<img src=${icon} />`
+	document.getElementById("icon").innerHTML = `<img src=${icon} width=80 />`
 	document.getElementById("temp").innerHTML = `${temp}&nbsp;℃`
-	document.getElementById("desc").innerHTML = `${description}`
+	document.getElementById("desc").innerHTML = `${weather.weather[0].main}`
 	document.getElementById("feels").innerHTML = `Feels like ${temp_feel}&nbsp;℃`
-	document.getElementById("humidity").innerHTML = `Humidity: ${humidity}%`
-	document.getElementById("pressure").innerHTML = `Pressure: ${pressure} <abbr class="no-underline" title="hectopascals">hPa</abbr>`
-	document.getElementById("speed").innerHTML = `Wind speed: ${speed} m/s`
+	document.getElementById("aqi").innerHTML = `Air quality: ${aqi_desc}`
+	document.getElementById("humidity").innerHTML = `Humidity: ${weather.main.humidity}%`
+	document.getElementById("pressure").innerHTML = `Pressure: ${weather.main.pressure} <abbr title="hectopascals">hPa</abbr>`
+	document.getElementById("speed").innerHTML = `Wind speed: ${weather.wind.speed} m/s`
 }
 
 function clearData() {
+	document.getElementById("input-error").innerHTML = ""
+	document.getElementById("output-error").innerHTML = ""
 	document.getElementById("city-name").innerHTML = ""
 	document.getElementById("today").innerHTML = ""
 	document.getElementById("icon").innerHTML = ""
@@ -99,12 +150,20 @@ function clearData() {
 	document.getElementById("speed").innerHTML = ""
 }
 
-function getData(city) {
+async function fetchWeather(city) {
 	document.getElementById("loading").style.display = "block" // loading GIF to show till data are loaded
 	const cities = {
+		"adisaptagram": "Magra, IN", // for Adisaptagram
+		"bandel": "Chunchura, IN", // for Bandel
+		"bansberia": "Bansbaria, IN", // for Bansberia
+		"behala": "Kolkata, IN", // for Behala
 		"birmingham": "Birmingham, GB", // change to the most popular Birmingham
+		"chinsurah": "Chunchura, IN", // for Chinsurah
+		"jadavpur": "Kolkata, IN", // for Jadavpur
 		"melbourne": "Melbourne, AU", // change to the most popular Melbourne
+		"mogra": "Magra, IN", // for Mogra
 		"rome": "Rome, IT", // change to the most popular Rome
+		"saptagram": "Magra, IN", // for Saptagram
 	}
 	if(cities[city.toLowerCase()] !== undefined) {
 		city = cities[city.toLowerCase()]
@@ -112,36 +171,60 @@ function getData(city) {
 
 	capitalize(city)
 
-	const source="https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid=643d74ed61652d0b3ac8bfe900c9b122"
+	const source = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+apiKey
 
-	fetch(source)
+	return fetch(source)
 		.then(response => response.json())
 		.then(data => {
-			country=data.sys.country // country
-			description=data.weather[0].main // description
-			icon=`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` // icon
-			humidity=data.main.humidity // humidity
-			pressure=data.main.pressure // pressure
-			name=data.name // name
-			speed=data.wind.speed // wind speed
-			temp=(Math.round(data.main.temp*100)-27315)/100 // temperature
-			temp_feel=(Math.round(data.main.feels_like*100)-27315)/100 // real feel
-
-			document.getElementById("loading").style.display = "none" // stop loading GIF
-			displayData()
+			return data
 		})
-		.catch(error => console.error('Error fetching JSON:', error))
+		.catch(error => {
+			document.getElementById("loading").style.display = "none" // stop loading GIF
+			document.getElementById("output-error").innerHTML = "City not found!"
+			console.error('Error fetching JSON:', error)
+		})
 }
 
 document.getElementById("get").addEventListener("click", () => {
 	let city=document.getElementById("input").value
 	if(city === "") {
 		console.log("Please enter a city!")
-		document.getElementById("error").innerHTML = "Please enter a city!"
+		document.getElementById("input-error").innerHTML = "Please enter a city!"
 	}
 	else {
-		document.getElementById("error").innerHTML = ""
 		clearData()
-		getData(city)
+		fetchWeather(city).then(weather => {
+			fetchAQI(weather.coord.lat, weather.coord.lon).then(aqi => {
+				displayData(weather, aqi)
+			})
+		})
 	}
+})
+
+document.getElementsByName("theme").forEach((radio) => {
+	radio.addEventListener("change", () => {
+		theme = radio.value
+		console.log("Theme: " + theme)
+
+		switch(theme) {
+			case "dark": // if theme is dark, select dark theme
+				document.querySelector("html").style.cssText = `
+					color-scheme: dark;
+					--background: linear-gradient(to bottom, black, #0B0B3B, #1C1C3A);
+					--button: darkgreen;
+					--foreground: #ededed;
+				`
+				break
+			case "light": // if theme is light, select light theme
+				document.querySelector("html").style.cssText = `
+					color-scheme: light;
+					--background: linear-gradient(to bottom, #87CEEB, #ADD8E6, white);
+					--button: lightgreen;
+					--foreground: black;"
+				`
+				break
+			default: // otherwise, select system default
+				document.querySelector("html").style.cssText = ""
+		}
+	})
 })

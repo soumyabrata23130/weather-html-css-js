@@ -1,20 +1,26 @@
 :root {
-	--background: linear-gradient(to bottom, #87CEEB, #ADD8E6, white);
-	--box: rgba(255, 255, 255, 0.3);
-	--button: lightgreen;
-	--foreground: black;
+	color-scheme: light dark;
 }
 
 * {
 	margin: 0;
 	padding: 0;
-	box-sizing: border-box;
+	box-sizing: border-card;
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		color-scheme: light;
+		--background: linear-gradient(to bottom, #87CEEB, #ADD8E6, white);
+		--button: lightgreen;
+		--foreground: black;
+	}
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
+		color-scheme: dark;
 		--background: linear-gradient(to bottom, black, #0B0B3B, #1C1C3A);
-		--box: rgba(100, 100, 100, 0.3);
 		--button: darkgreen;
 		--foreground: #ededed;
 	}
@@ -30,8 +36,8 @@ html, body {
 	margin: 0;
 }
 
-#weather-card {
-	background: var(--box);
+.card {
+	background: rgba(250, 250, 250, 0.3);
 	box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
 }
 
@@ -48,10 +54,4 @@ button {
 	display: none;
 	margin: 2rem auto;
 	width: 2rem;
-}
-
-@media (prefers-color-scheme: dark) {
-	html {
-		color-scheme: dark;
-	}
 }
