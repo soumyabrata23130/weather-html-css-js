@@ -1,24 +1,5 @@
 const apiKey = "643d74ed61652d0b3ac8bfe900c9b122" // API key
 
-// default call
-fetchWeather("Kolkata").then(weather => {
-	fetchAQI(weather.coord.lat, weather.coord.lon).then(aqi => {
-		displayData(weather, aqi)
-	})
-})
-
-function toCommonsLink(image) {
-	for(let i = 0; i < image.length; i++) {
-		image = image.replace(" ", "_")
-	}
-	const hash = CryptoJS.MD5(image).toString(CryptoJS.enc.Hex)
-	const url = "https://upload.wikimedia.org/wikipedia/commons/"+hash[0]+"/"+hash[0]+hash[1]+"/"+image
-
-	console.log("URL: " + url)
-
-	return url
-}
-
 function capitalize(str) {
 	str = str[0].toUpperCase() + str.slice(1)
 	for(let i = 0; i < str.length; i++) {
@@ -187,6 +168,13 @@ async function fetchWeather(city) {
 			console.error('Error fetching JSON:', error)
 		})
 }
+
+// default call
+fetchWeather("Kolkata").then(weather => {
+	fetchAQI(weather.coord.lat, weather.coord.lon).then(aqi => {
+		displayData(weather, aqi)
+	})
+})
 
 document.getElementById("get").addEventListener("click", () => {
 	let city=document.getElementById("input").value
