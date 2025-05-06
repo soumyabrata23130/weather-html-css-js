@@ -104,7 +104,18 @@ function displayData(weather, aqi) {
 		default:
 			aqi_desc = "Unknown"
 	}
-	
+	// display at console
+	console.log("Today: " + today())
+	console.log("Icon URL: " + icon)
+	console.log("Temperature: " + temp + " ℃")
+	console.log("Description: " + weather.weather[0].main)
+	console.log("Feels like: " + temp + " ℃")
+	console.log("Air quality: " + aqi_desc)
+	console.log("Humidity: " + weather.main.humidity + "%")
+	console.log("Pressure: " + weather.main.pressure + " hPa")
+	console.log("Wind speed: " + weather.wind.speed + " m/s")
+
+	// display at web page
 	document.getElementById("city-name").innerHTML = `${weather.name}, ${weather.sys.country}`
 	document.getElementById("today").innerHTML = `${today()}`
 	document.getElementById("icon").innerHTML = `<img src=${icon} width=80 />`
