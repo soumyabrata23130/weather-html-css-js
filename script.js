@@ -153,6 +153,7 @@ async function fetchWeather(city) {
 		"birmingham": "Birmingham, GB", // change to the most popular Birmingham
 		"chinsurah": "Chunchura, IN", // for Chinsurah
 		"jadavpur": "Kolkata, IN", // for Jadavpur
+		"magra": "Magra, IN", // for Magra
 		"melbourne": "Melbourne, AU", // change to the most popular Melbourne
 		"mogra": "Magra, IN", // for Mogra
 		"rome": "Rome, IT", // change to the most popular Rome
@@ -172,6 +173,7 @@ async function fetchWeather(city) {
 			fetchAQI(weather.coord.lat, weather.coord.lon).then(aqi => {
 				displayData(weather, aqi)
 			})
+			localStorage.setItem("city", `${weather.name}, ${weather.sys.country}`)
 		})
 		.catch(error => {
 			document.getElementById("loading").style.display = "none" // stop loading GIF
@@ -181,12 +183,17 @@ async function fetchWeather(city) {
 }
 
 // default call
-fetchWeather("Kolkata").then(weather => {
+let default_city = "Kolkata"
+if(localStorage.getItem("city")) {
+	default_city = localStorage.getItem("city")
+}
+fetchWeather(default_city).then(weather => {
 	fetchAQI(weather.coord.lat, weather.coord.lon).then(aqi => {
 		displayData(weather, aqi)
 	})
 })
 
+// called by "Get Weather"
 document.getElementById("get").addEventListener("click", () => {
 	let city=document.getElementById("input").value
 	if(city === "") {
@@ -199,6 +206,7 @@ document.getElementById("get").addEventListener("click", () => {
 	}
 })
 
+// dark and light theme
 document.getElementsByName("theme").forEach((radio) => {
 	radio.addEventListener("change", () => {
 		theme = radio.value
