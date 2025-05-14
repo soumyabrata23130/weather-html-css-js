@@ -194,7 +194,9 @@ fetchWeather(default_city).then(weather => {
 })
 
 // called by "Get Weather"
-document.getElementById("get").addEventListener("click", () => {
+document.getElementById("weather-card").addEventListener("submit", (event)=>{
+	event.preventDefault()
+
 	let city=document.getElementById("input").value
 	if(city === "") {
 		console.log("Please enter a city!")
