@@ -118,7 +118,7 @@ function displayData(weather, aqi) {
 	// display at web page
 	document.getElementById("city-name").innerHTML = `${weather.name}, ${weather.sys.country}`
 	document.getElementById("today").innerHTML = `${today()}`
-	document.getElementById("icon").innerHTML = `<img src=${icon} width=80 />`
+	document.getElementById("icon").innerHTML = `<img src=${icon} width=100 />`
 	document.getElementById("temp").innerHTML = `${temp}&nbsp;℃`
 	document.getElementById("desc").innerHTML = `${weather.weather[0].main}`
 	document.getElementById("feels").innerHTML = `Feels like ${temp_feel}&nbsp;℃`

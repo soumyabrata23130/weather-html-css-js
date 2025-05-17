@@ -50,6 +50,10 @@ button {
 	background: var(--button);
 }
 
+image {
+	text-align: center;
+}
+
 #loading {
 	display: none;
 	margin: 2rem auto;

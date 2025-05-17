@@ -11,7 +11,7 @@
 		<main class="text-center">
 			<h1 class="font-bold text-3xl">Weather</h1>
 			<!-- theme selector -->
-			<form class="card mx-auto mb-8 mt-4 px-2 py-3 rounded-lg" id="theme-card">
+			<form class="card mx-auto mb-8 mt-3 px-2 py-3 rounded-lg" id="theme-card">
 				<fieldset class="flex gap-3 justify-center" id="theme-select">
 					<legend>Select theme:</legend>
 					<p>
@@ -29,29 +29,31 @@
 				</fieldset>
 			</form>
 			<!-- weather card -->
-			<form class="card mx-auto px-2 py-3 rounded-lg" id="weather-card">
+			<form class="card mx-auto p-4 rounded-lg" id="weather-card">
 				<!-- input begin -->
 				<input class="px-1 rounded-md" type="text" id="input" name="city" placeholder="Enter a city" required><br>
 				<button class="m-2 px-3 py-1 rounded-lg" type="submit" id="get">Get Weather</button><!-- submit button -->
 				<p id="input-error"></p>
 				<!-- input end -->
-				<hr class="my-2">
+				<hr class="my-1">
 				<!-- output begin -->
 				<p id="output-error"></p>
 				<img id="loading" src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Ajax_loader_metal_512.gif" alt="Please wait">
 				<h2 class="font-bold text-2xl" id="city-name"></h2><!-- city name -->
 				<p class="mb-2 text-sm" id="today"></p><!-- current date & time -->
-				<div class="float-right mr-5" id="icon"></div><!-- icon -->
-				<div class="text-left ml-5" id="temp-box"><!-- flexbox with temperature -->
-					<p class="font-semibold text-xl" id="temp"></p><!-- temperature -->
-					<p class="text-sm" id="desc"></p><!-- weather description -->
-					<p class="text-sm" id="feels"></p><!-- feels like -->
-				</div>
-				<div class="clear-both">
-					<p id="aqi"></p><!-- air quality index -->
-					<p id="humidity"></p><!-- humidity -->
-					<p id="pressure"></p><!-- pressure -->
-					<p id="speed"></p><!-- wind speed -->
+				<div class="flex gap-6 items-center">
+					<div class="flex-col">
+						<div class="flex justify-center" id="icon"></div><!-- icon -->
+						<p class="font-semibold text-xl" id="temp"></p><!-- temperature -->
+						<p class="text-sm" id="desc"></p><!-- weather description -->
+						<p class="text-sm" id="feels"></p><!-- feels like -->
+					</div>
+					<div class="text-left">
+						<p id="aqi"></p><!-- air quality index -->
+							<p id="humidity"></p><!-- humidity -->
+						<p id="pressure"></p><!-- pressure -->
+						<p id="speed"></p><!-- wind speed -->
+					</div>
 				</div>
 				<!-- output end -->
 			</form>
