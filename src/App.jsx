@@ -112,7 +112,7 @@ export default function App() {
       .then((res) => {
         console.log("AQI res", res);
 
-        let aqi_desc;
+        let aqi_desc = "";
 
         switch (res.data.list[0].main.aqi) {
           case 1:
@@ -132,6 +132,11 @@ export default function App() {
             break;
           default:
             aqi_desc = "Unknown";
+        }
+
+        /* in case if the above switch does not work */
+        if (aqi_desc === "") {
+          aqi_desc = "Unknown";
         }
 
         setAQI({ data: res.data, desc: aqi_desc, error: false });
