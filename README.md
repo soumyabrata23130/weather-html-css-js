@@ -1,5 +1,10 @@
 # Weather
 
-A web application that provides basic weather information from OpenWeather's API. Enter a city, press "Get Weather" and you will get the basic weather information of the city, including temperature, air quality, humidity, pressure and wind speed.
+A web application that gives basic weather information from OpenWeather's API. Enter a city, press "Enter" on your keyboard, and you will get its weather information, like temperature, air quality, humidity, pressure and wind speed. It is designed to be as responsive as possible, so that it can be comfortably read on a mobile as well as on a PC.
 
-![Weather Dark Mode](./weather_dark_mode.png)
+Demo: https://soumyabrata23130.github.io/weather-web
+
+## Tech Stack
+- React
+- Tailwind
+- Vite
